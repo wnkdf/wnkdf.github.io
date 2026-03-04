@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>图片上传与描述</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin-top: 40px;
+        }
+        .preview {
+            margin-top: 20px;
+        }
+        img {
+            max-width: 300px;
+            margin-top: 10px;
+            border-radius: 10px;
+        }
+        textarea {
+            width: 300px;
+            height: 80px;
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>上传图片并添加描述</h2>
+
+    <!-- 图片上传 -->
+    <input type="file" id="imageInput" accept="image/*"><br>
+
+    <!-- 文字描述 -->
+    <textarea id="description" placeholder="请输入图片描述..."></textarea><br>
+
+    <!-- 提交按钮 -->
+    <button onclick="submitPost()">发布</button>
+
+    <!-- 展示区域 -->
+    <div class="preview" id="output"></div>
+
+    <script>
+        let uploadedImageURL = "";
+
+        // 监听图片选择
+        document.getElementById("imageInput").addEventListener("change", function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                uploadedImageURL = URL.createObjectURL(file);
+            }
+        });
+
+        function submitPost() {
+            const description = document.getElementById("description").value;
+            const outputDiv = document.getElementById("output");
+
+            if (!uploadedImageURL) {
+                alert("请先上传图片！");
+                return;
+            }
+
+            outputDiv.innerHTML = `
+                <h3>你的发布内容：</h3>
+                <img src="${uploadedImageURL}">
+                <p>${description}</p>
+            `;
+        }
+    </script>
+
+</body>
+</html>
